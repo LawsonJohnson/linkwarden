@@ -9,7 +9,6 @@ services:
         source: pgdata
         target: /var/lib/postgresql/data
   linkwarden:
-    network_mode: host
     env_file: stack.env
     environment:
       - DATABASE_URL=postgresql://postgres:${POSTGRES_PASSWORD}@postgres:5432/postgres
