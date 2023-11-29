@@ -2,12 +2,14 @@ version: "3.5"
 services:
   postgres:
     image: postgres:16-alpine
-    env_file: .env
+    env_file: stack.env
     restart: always
     volumes:
-      - ./pgdata:/var/lib/postgresql/data
+      - type: volume
+        source: pgdata
+        target: /var/lib/postgresql/data
   linkwarden:
-    env_file: .env
+    env_file: stack.env
     environment:
       - DATABASE_URL=postgresql://postgres:${POSTGRES_PASSWORD}@postgres:5432/postgres
     restart: always
@@ -15,6 +17,10 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - ./data:/data/data
+      - type: bind
+        source:${LINKWARDEN_DIR}/data
+        target:/data/data
     depends_on:
       - postgres
+volumes:
+  pgdata:
