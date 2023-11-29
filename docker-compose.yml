@@ -9,16 +9,14 @@ services:
         source: pgdata
         target: /var/lib/postgresql/data
   linkwarden:
+    network_mode: host
     env_file: stack.env
     environment:
       - DATABASE_URL=postgresql://postgres:${POSTGRES_PASSWORD}@postgres:5432/postgres
     restart: always
     image: ghcr.io/linkwarden/linkwarden:latest
     ports:
-      - target: 3000
-        published: 3000
-        protocol: tcp
-        mode: host
+      - 3000:3000
     volumes:
       - type: bind
         source: ${LINKWARDEN_DIR}/data
