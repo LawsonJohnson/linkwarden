@@ -18,8 +18,8 @@ services:
       - 3000:3000
     volumes:
       - type: bind
-        source:${LINKWARDEN_DIR}/data
-        target:/data/data
+        source: ${LINKWARDEN_DIR}/data
+        target: /data/data
     depends_on:
       - postgres
 volumes:
